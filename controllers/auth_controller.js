@@ -65,7 +65,21 @@ const protect = catchAsync(async (req, res, next) => {
   }
 
   // Verification token
-  const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+  let decoded;
+  try {
+    decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+  } catch (error) {
+    if (error.name === 'TokenExpiredError') {
+      return next(
+        new AppError('Your token has expired! Please log in again', 401),
+      );
+    }
+    if (error.name === 'JsonWebTokenError') {
+      return next(new AppError('Invalid token! Please log in again', 401));
+    }
+    throw error; // Re-throw other errors
+  }
+  // const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
 
   // 3) Check if user still exists
   const currentUser = await User.findById(decoded.id);
