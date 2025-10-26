@@ -11,7 +11,7 @@ const {
 
 const { protect } = require('../../controllers/auth_controller');
 
-router.route('/').get(getAllTransactions).post(createTransaction);
+router.route('/').get(protect, getAllTransactions).post(createTransaction);
 
 router
   .route('/:id')
