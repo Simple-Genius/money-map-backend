@@ -24,7 +24,6 @@ const signup = catchAsync(async (req, res, next) => {
     token,
     data: {
       user: newUser,
-      expiresIn: process.env.JWT_EXPIRES_IN, // testing expiry of token
     },
   });
 });
