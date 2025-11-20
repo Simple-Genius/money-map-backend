@@ -32,7 +32,6 @@ const userSchema = new Schema({
     default: 'GBP',
     enum: ['USD', 'EUR', 'GBP', 'JPY', 'CAD', 'AUD'],
   },
-
   photo: String,
   password: {
     type: String,
