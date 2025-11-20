@@ -13,6 +13,26 @@ const userSchema = new Schema({
     lowercase: true,
     validate: [validator.isEmail, 'Please provide a valid email'],
   },
+  firstName: {
+    type: String,
+    required: [true, 'Please provide first name'],
+    trim: true,
+  },
+  lastName: {
+    type: String,
+    required: [true, 'Please provide last name'],
+    trim: true,
+  },
+  phoneNumber: {
+    type: String,
+    trim: true,
+  },
+  currency: {
+    type: String,
+    default: 'GBP',
+    enum: ['USD', 'EUR', 'GBP', 'JPY', 'CAD', 'AUD'],
+  },
+
   photo: String,
   password: {
     type: String,

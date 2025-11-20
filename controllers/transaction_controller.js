@@ -2,7 +2,10 @@ const Transaction = require('../models/transactions_model');
 
 const getAllTransactions = async (req, res) => {
   try {
-    const transactions = await Transaction.find({}).sort({ createdAt: -1 });
+    const userId = req.user._id;
+    const transactions = await Transaction.find({})
+      .sort({ createdAt: -1 })
+      .populate('name');
     res.status(200).json(transactions);
   } catch (error) {
     res.status(500).json({ message: error.message });
